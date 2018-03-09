@@ -22,7 +22,7 @@ class CrudCategoria
     public function getCategoria(int $id)
     {
         //FAZ CONEXÃO                             //CRIA A CONSULTA
-        $consulta = $this->conexao->query("SELECT * FROM categoria WHERE id = $id");
+        $consulta = $this->conexao->query("SELECT * FROM categoria WHERE id_categoria = $id");
         //TRANSFORMA RESULTADO EM ARRAY
         $categoria = $consulta->fetch(PDO::FETCH_ASSOC);
         //INSTANCIA UM OBJETO DO TIPO CATEGORIA COM OS VALORES RECEBIDOS E O RETORNA
@@ -41,23 +41,32 @@ class CrudCategoria
         return $listaCategorias;
     }
 
-    public function insertCategoria (Categoria $categoria){
-        $sql = "INSERT INTO categoria (nome, descricao) VALUES ('$categoria->nome', '$categoria->descricao')";
+    public function insertCategoria (Categoria $categoria)
+    {
+        $this->conexao = DBConnection::getConexao();
+        $sql = "INSERT INTO categoria (nome_categoria, descricao_categoria) VALUES ('$categoria->getNome', '$categoria->getDescricao')";
+        try{
         $this->conexao->exec($sql);
+        }catch (PDOException $e){
+        return $e->getMessage();
+
+        }
 
     }
 
     public function editarCategoria(Categoria $categoria){
 
-        $sql = "UPDATE categoria SET nome='$nome',descricao='$descricao' WHERE id =$id";
+        $sql = "UPDATE categoria SET nome_categoria='$nome',descricao_categoria='$descricao' WHERE id_categoria =$id";
         $this->conexao->exec($sql);
+    }
+
+    public function deletarCategoria(Categoria $id){
+        $this->conexao->exec("DELETE FROM categoria WHERE id_categoria = $id");
     }
 
 }
 
-$crud = new CrudCategoria();
 
-$catnova = new Categoria(null, 'Bicicletas', 'Tudo para sua bicicleta');
 
 
 
