@@ -21,11 +21,20 @@
       case 'index':
           $crud = new CrudCategoria();
           $categorias = $crud->getCategorias();
+          echo ('<pre>');
+          var_dump($categorias);
           include '../views/categorias/index.php';
           break;
 
       case 'inserir':
           echo "You chosen insert";
+          break;
+
+      case 'exibir':
+          $id = $_GET['id'];
+          $crud = new CrudCategoria();
+          $categoria = $crud->getCategoria($id);
+          include '../views/categorias/exibir.php';
           break;
 
       default: //CASO NÃO SEJA NENHUM DOS ANERIORES
