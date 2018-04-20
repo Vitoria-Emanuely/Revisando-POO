@@ -41,27 +41,35 @@ class CrudCategoria
         return $listaCategorias;
     }
 
-    public function insertCategoria (Categoria $categoria)
+    public function insertCategoria (Categoria $cat)
     {
         $this->conexao = DBConnection::getConexao();
-        $sql = "INSERT INTO categoria (nome_categoria, descricao_categoria) VALUES ('$categoria->getNome', '$categoria->getDescricao')";
+        $dados[] = $cat->getNome();
+        $dados[] = $cat->getDescricao();
+        $sql = "insert into categoria (nome_categoria, descricao_categoria) values ('$dados[0]', '$dados[1]')";
         try{
-        $this->conexao->exec($sql);
+            $res = $this->conexao->exec($sql);
+            return;
         }catch (PDOException $e){
-        return $e->getMessage();
-
+            return $e->getMessage();
         }
 
     }
 
-    public function editarCategoria(Categoria $categoria){
+    public function editarCategoria(Categoria $cat, $id_categoria){
 
-        $sql = "UPDATE categoria SET nome_categoria='$nome',descricao_categoria='$descricao' WHERE id_categoria =$id";
+        $this->conexao = DBConnection::getConexao();
+        $nome = $cat->getNome();
+        $descricao = $cat->getDescricao();
+        $sql = "UPDATE categoria SET nome_categoria='$nome',descricao_categoria='$descricao' WHERE id_categoria =$id_categoria";
         $this->conexao->exec($sql);
     }
 
-    public function deletarCategoria(Categoria $id){
-        $this->conexao->exec("DELETE FROM categoria WHERE id_categoria = $id");
+    public function deletarCategoria(Categoria $id_categoria){
+
+        $this->conexao = DBConnection::getConexao();
+        $sql = "delete from categoria where id_categoria = $id_categoria";
+        $this->conexao->exec($sql);
     }
 
 }
