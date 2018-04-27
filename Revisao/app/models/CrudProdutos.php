@@ -6,8 +6,9 @@
  * Time: 16:04
  */
 
-require_once 'Produto.php';
+require_once '../models/Produto.php';
 require_once 'DBConnection.php';
+
 
 class CrudProdutos
 {
@@ -21,9 +22,12 @@ class CrudProdutos
 
     public function getProduto(int $id)
     {
-        $consulta = $this->conexao->query("SELECT * FROM produto WHERE id = $id");
+        //FAZ CONEXÃO                             //CRIA A CONSULTA
+        $consulta = $this->conexao->query("SELECT * FROM produto WHERE id_produto = $id");
+        //TRANSFORMA RESULTADO EM ARRAY
         $produto = $consulta->fetch(PDO::FETCH_ASSOC);
-        return new Produto($produto['nome_produto'], $produto['preco_produto'], $produto['descricao_produto'], $produto['id_produto'], $produto['foto_produto']);
+        //INSTANCIA UM OBJETO DO TIPO CATEGORIA COM OS VALORES RECEBIDOS E O RETORNA
+        return new Produto($produto['nome_produto'], $produto['descricao_produto'], $produto['foto_produto'], $produto['preco_produto'], $produto['id_produto']);
     }
 
     public function getProdutos()
@@ -33,24 +37,53 @@ class CrudProdutos
 
         $listaProdutos = [];
         foreach ($arrayProdutos as $produto) {
-            $listaProdutos[] = new Produto($produto['nome_produto'], $produto['preco_produto'], $produto['descricao_produto'], $produto['id_produto'], $produto['foto_produto']);
+            $listaProdutos[] = new Produto($produto['nome_produto'], $produto['descricao_produto'], $produto['foto_produto'], $produto['preco_produto'], $produto['id_produto']);
         }
         return $listaProdutos;
     }
 
-    public function insertProduto(Produto $produto){
+    public function insertProduto (Produto $prod)
+    {
+        $this->conexao = DBConnection::getConexao();
+        $dados[] = $prod->getNome();
+        $dados[] = $prod->getDescricao();
+        $sql = "insert into produto (nome_produto, descricao_produto, foto_produto, preco_produto) values ('$dados[0]', '$dados[1]', '$dados[2]', '$dados[3]')";
+        try{
+            $res = $this->conexao->exec($sql);
+            return true;
+        }catch (PDOException $e){
+            return $e->getMessage();
+        }
 
     }
 
-    public function updateProduto(Produto $produto){
+    public function editarProduto(Produto $prod){
+
+        $this->conexao = DBConnection::getConexao();
+        $nome = $prod->getNome();
+        $descricao = $prod->getDescricao();
+        $id_produto = $prod->getId();
+        $sql = "UPDATE produto SET nome_produto='$nome',descricao_produto='$descricao', foto_produto='$foto', preco_produto='$preco' WHERE id_produto = $id_produto";
+        try {
+            $this->conexao->exec($sql);
+            return true;
+        }catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function deletarProduto($id_produto){
+
+        $this->conexao = DBConnection::getConexao();
+        $sql = "delete from produto where id_produto = $id_produto";
+        try{
+            $this->conexao->exec($sql);
+            return true;
+        }catch (PDOException $e) {
+            return $e->getMessage();
+        }
 
     }
 
 }
-
-$crud = new CrudProdutos();
-$prod = $crud->getProdutos();
-
-var_dump($prod);
-
 

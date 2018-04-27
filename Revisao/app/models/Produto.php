@@ -14,7 +14,7 @@ class Produto
     private $preco;
     private $id;
 
-    public function __construct($nome, $descricao, $foto, $preco, $id){
+    public function __construct($nome, $descricao, $foto, $preco, $id = null){
         $this->nome = $nome;
         $this->descricao = $descricao;
         $this->foto = $foto;

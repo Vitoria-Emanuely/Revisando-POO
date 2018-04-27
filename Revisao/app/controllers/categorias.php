@@ -37,7 +37,7 @@
 
       case 'inserir':
           if (!isset($_POST['gravar'])) {
-              $id = $_POST['id'];
+
               include '../views/templates/cabecalho.php';
               include '../views/categorias/inserir.php';
               include '../views/templates/rodape.php';
@@ -45,7 +45,7 @@
               //gravar dados digitados no BD
               $nome = $_POST['nome'];
               $descricao = $_POST['descricao'];
-              $novaCat = new Categoria(null, $nome, $descricao);
+              $novaCat = new Categoria($nome, $descricao);
               $crud = new CrudCategoria();
               $res = $crud->insertCategoria($novaCat);
 
@@ -55,14 +55,18 @@
 
       case 'alterar':
           if (!isset($_POST['gravar'])) {
+              $id = $_GET['id'];
+              $crud = new CrudCategoria();
+              $categoria = $crud->getCategoria($id);
               include '../views/templates/cabecalho.php';
-              include '../views/categorias/inserir.php';
+              include '../views/categorias/alterar.php';
               include '../views/templates/rodape.php';
           }else{
               //gravar dados digitados no BD
+              $id = $_POST['id'];
               $nome = $_POST['nome'];
               $descricao = $_POST['descricao'];
-              $novaCat = new Categoria(null, $nome, $descricao);
+              $novaCat = new Categoria($nome, $descricao, $id);
               $crud = new CrudCategoria();
               $res = $crud->insertCategoria($novaCat);
 
@@ -70,7 +74,33 @@
           }
           break;
 
+      case 'excluir':
+          if (!isset($_POST['gravar'])) {
+              $id = $_GET['id'];
+              $crud = new CrudCategoria();
+              $categoria = $crud->getCategoria($id);
+              include '../views/templates/cabecalho.php';
+              include '../views/categorias/excluir.php';
+              include '../views/templates/rodape.php';
+          }else{
+              //gravar dados digitados no BD
+              $id = $_POST['id'];
 
-      default: //CASO NÃO SEJA NENHUM DOS ANERIORES
+              $crud = new CrudCategoria();
+              $res = $crud->deletarCategoria($id);
+
+              if ($res == 1){
+                      header('Location: categorias.php');
+              }else{
+                  echo 'Não foi possível efetuar a exclusão!';
+                  echo '<a href="categorias.php">Voltar</a>';
+
+              }
+
+          }
+          break;
+
+
+      default: //CASO NÃO SEJA NENHUM DOS ANTERIORES
           echo "Invalid action";
   }

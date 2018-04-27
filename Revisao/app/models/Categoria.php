@@ -12,7 +12,7 @@ class Categoria
     private $nome;
     private $descricao;
 
-    public function __construct($id=null, $nome, $descricao){
+    public function __construct($nome, $descricao, $id=null){
         $this->id = $id;
         $this->nome = $nome;
         $this->descricao = $descricao;
