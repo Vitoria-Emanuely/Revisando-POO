@@ -44,9 +44,8 @@ switch ($acao){
             $novoProd = new Produto($nome, $descricao, $preco);
             $crud = new CrudProdutos();
             $res = $crud->insertProduto($novoProd);
-            var_dump($res);
 
-            //header('Location: produtos.php');
+            header('Location: produtos.php');
         }
         break;
 

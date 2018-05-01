@@ -48,7 +48,7 @@ class CrudProdutos
         $dados[] = $prod->getNome();
         $dados[] = $prod->getDescricao();
         $dados[] = $prod->getPreco();
-        $sql = "insert into produto (nome_produto, descricao_produto, preco_produto) values ('$dados[0]', '$dados[1]', '$dados[2]')";
+        $sql = "insert into produto (nome_produto, descricao_produto, preco_produto, id_categoria) values ('$dados[0]', '$dados[1]', '$dados[2]', '2')";
         try{
             $res = $this->conexao->exec($sql);
             return true;
