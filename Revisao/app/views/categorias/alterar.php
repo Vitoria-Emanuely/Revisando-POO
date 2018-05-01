@@ -1,6 +1,6 @@
 <h2>Alterar Categoria</h2>
 
-<form method="post" action="app/controllers/categorias.php?acao=alterar">
+<form method="post" action="?acao=alterar">
 
     <label for="nome">Nome</label>
     <input type="hidden" name="id" value="<?= $categoria->getId(); ?>">

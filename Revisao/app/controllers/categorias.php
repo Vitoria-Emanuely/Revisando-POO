@@ -48,7 +48,6 @@
               $novaCat = new Categoria($nome, $descricao);
               $crud = new CrudCategoria();
               $res = $crud->insertCategoria($novaCat);
-
               header('Location: categorias.php');
           }
           break;
@@ -68,7 +67,7 @@
               $descricao = $_POST['descricao'];
               $novaCat = new Categoria($nome, $descricao, $id);
               $crud = new CrudCategoria();
-              $res = $crud->insertCategoria($novaCat);
+              $res = $crud->editarCategoria($novaCat);
 
               header('Location: categorias.php');
           }

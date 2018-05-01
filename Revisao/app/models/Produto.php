@@ -10,14 +10,13 @@ class Produto
 {
     private $nome;
     private $descricao;
-    private $foto;
     private $preco;
     private $id;
 
-    public function __construct($nome, $descricao, $foto, $preco, $id = null){
+    public function __construct($nome, $descricao, $preco, $id = null){
         $this->nome = $nome;
         $this->descricao = $descricao;
-        $this->foto = $foto;
+
         $this->preco = $preco;
         $this->id = $id;
     }
@@ -72,18 +71,7 @@ class Produto
     /**
      * @return mixed
      */
-    public function getFoto()
-    {
-        return $this->foto;
-    }
 
-    /**
-     * @param mixed $foto
-     */
-    public function setFoto($foto)
-    {
-        $this->foto = $foto;
-    }
 
     /**
      * @return mixed

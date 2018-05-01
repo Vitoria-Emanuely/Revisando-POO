@@ -39,13 +39,14 @@ switch ($acao){
             //gravar dados digitados no BD
             $nome = $_POST['nome'];
             $descricao = $_POST['descricao'];
-            $foto = $_POST['foto'];
+            //$foto = $_POST['foto'];
             $preco = $_POST['preco'];
-            $novoProd = new Produto($nome, $descricao, $foto, $preco);
+            $novoProd = new Produto($nome, $descricao, $preco);
             $crud = new CrudProdutos();
             $res = $crud->insertProduto($novoProd);
+            var_dump($res);
 
-            header('Location: produtos.php');
+            //header('Location: produtos.php');
         }
         break;
 
@@ -62,11 +63,10 @@ switch ($acao){
             $id = $_POST['id'];
             $nome = $_POST['nome'];
             $descricao = $_POST['descricao'];
-            $foto = $_POST['foto'];
             $preco = $_POST['preco'];
-            $novoProd = new Produto($nome, $descricao, $foto, $preco, $id);
+            $novoProd = new Produto($nome, $descricao, $preco, $id);
             $crud = new CrudProdutos();
-            $res = $crud->insertProduto($novoProd);
+            $res = $crud->editarProduto($novoProd);
 
             header('Location: produtos.php');
         }
