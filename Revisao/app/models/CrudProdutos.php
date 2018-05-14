@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aluno
- * Date: 02/03/18
- * Time: 16:04
- */
 
 require_once '../models/Produto.php';
 require_once 'DBConnection.php';
-
 
 class CrudProdutos
 {
@@ -44,11 +37,10 @@ class CrudProdutos
 
     public function insertProduto (Produto $prod)
     {
-        $this->conexao = DBConnection::getConexao();
         $dados[] = $prod->getNome();
         $dados[] = $prod->getDescricao();
         $dados[] = $prod->getPreco();
-        $sql = "insert into produto (nome_produto, descricao_produto, preco_produto, id_categoria) values ('$dados[0]', '$dados[1]', '$dados[2]', '2')";
+        $sql = "INSERT INTO produto (nome_produto, descricao_produto, preco_produto, id_categoria) VALUES ('$dados[0]', '$dados[1]', '$dados[2]', '2')";
         try{
             $res = $this->conexao->exec($sql);
             return true;
@@ -59,8 +51,6 @@ class CrudProdutos
     }
 
     public function editarProduto(Produto $prod){
-
-        $this->conexao = DBConnection::getConexao();
         $nome = $prod->getNome();
         $descricao = $prod->getDescricao();
         $preco = $prod->getPreco();
@@ -75,9 +65,7 @@ class CrudProdutos
     }
 
     public function deletarProduto($id_produto){
-
-        $this->conexao = DBConnection::getConexao();
-        $sql = "delete from produto where id_produto = $id_produto";
+        $sql = "DELETE FROM produto WHERE id_produto = $id_produto";
         try{
             $this->conexao->exec($sql);
             return true;

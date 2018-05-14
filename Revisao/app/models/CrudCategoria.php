@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aluno
- * Date: 09/03/18
- * Time: 08:19
- */
 
 require_once '../models/Categoria.php';
 require_once 'DBConnection.php';
@@ -43,10 +37,9 @@ class CrudCategoria
 
     public function insertCategoria (Categoria $cat)
     {
-        $this->conexao = DBConnection::getConexao();
         $dados[] = $cat->getNome();
         $dados[] = $cat->getDescricao();
-        $sql = "insert into categoria (nome_categoria, descricao_categoria) values ('$dados[0]', '$dados[1]')";
+        $sql = "INSERT INTO categoria (nome_categoria, descricao_categoria) VALUES ('$dados[0]', '$dados[1]')";
         try{
             $res = $this->conexao->exec($sql);
             return true;
@@ -58,7 +51,6 @@ class CrudCategoria
 
     public function editarCategoria(Categoria $cat){
 
-        $this->conexao = DBConnection::getConexao();
         $nome = $cat->getNome();
         $descricao = $cat->getDescricao();
         $id_categoria = $cat->getId();
@@ -73,8 +65,7 @@ class CrudCategoria
 
     public function deletarCategoria($id_categoria){
 
-        $this->conexao = DBConnection::getConexao();
-        $sql = "delete from categoria where id_categoria = $id_categoria";
+        $sql = "DELETE FROM categoria WHERE id_categoria = $id_categoria";
         try{
         $this->conexao->exec($sql);
             return true;

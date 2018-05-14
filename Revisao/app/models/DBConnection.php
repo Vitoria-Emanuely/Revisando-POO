@@ -1,4 +1,5 @@
 <?php
+
 class DBConnection {
 
     const HOST      = "localhost";
@@ -6,7 +7,6 @@ class DBConnection {
     const USUARIO   = "3info3";
     const SENHA     = "3info3";
 
-    //!!!Substitua daqui para baixo
     public static $conexao = null;
     public static function getConexao(){
 
@@ -24,5 +24,5 @@ class DBConnection {
         return $conexao;
     }
 
-}// class ends
+}
 ?>

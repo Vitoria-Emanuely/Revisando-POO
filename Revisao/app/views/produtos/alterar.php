@@ -1,4 +1,3 @@
-
 <h2>Alterar Produto</h2>
 
 <form method="post" action="?acao=alterar">
@@ -9,11 +8,11 @@
     <br>
     <label for="descricao">Descrição</label>
     <textarea name="descricao" id="descricao" cols="30" rows="3"><?= $produto->getDescricao(); ?></textarea>
-<br>
-
+    <br>
     <label for="preco">Preço</label>
     <input name="preco" type="number" step="0.01" class="form-control" id="preco"<?= $produto->getPreco(); ?> >
     <br>
-<input type="submit" name="gravar" value="Gravar"/>
+
+    <input type="submit" name="gravar" value="Gravar"/>
 
 </form>

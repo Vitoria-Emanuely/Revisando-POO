@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aluno
- * Date: 13/04/18
- * Time: 08:25
- */
-//Controlador
 
 /* AÇÃO PRINCIPAL = LISTAR TODAS AS CATEGORIAS */
 
@@ -68,7 +61,6 @@
               $novaCat = new Categoria($nome, $descricao, $id);
               $crud = new CrudCategoria();
               $res = $crud->editarCategoria($novaCat);
-
               header('Location: categorias.php');
           }
           break;
@@ -84,7 +76,6 @@
           }else{
               //gravar dados digitados no BD
               $id = $_POST['id'];
-
               $crud = new CrudCategoria();
               $res = $crud->deletarCategoria($id);
 
@@ -93,12 +84,9 @@
               }else{
                   echo 'Não foi possível efetuar a exclusão!';
                   echo '<a href="categorias.php">Voltar</a>';
-
               }
-
           }
           break;
-
 
       default: //CASO NÃO SEJA NENHUM DOS ANTERIORES
           echo "Invalid action";

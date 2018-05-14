@@ -9,6 +9,7 @@
     <label for="descricao">Descrição</label>
     <textarea name="descricao" id="descricao" cols="30" rows="3"><?= $categoria->getDescricao(); ?></textarea>
     <br>
+
     <input type="submit" name="gravar" value="Gravar"/>
 
 </form>
